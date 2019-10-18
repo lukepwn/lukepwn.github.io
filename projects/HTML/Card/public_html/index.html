@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment 4</title>
+        <script type ="text/javascript" src="A4js.js">
+        </script>
+        <style>
+            #square {
+                width:100px;
+                height: 100px;
+                position:absolute;
+                
+            }
+            #gradient {
+                width: 100%;
+                padding: 0px;
+                
+            }
+            
+        </style>
+    </head>
+    <body>
+        <form>
+            <div>
+                <input type="text" name ="name" id ="name" placeholder="Your name" style="display:block">
+                <input type="text" name ="color" id ="color" placeholder="Theme color" style="display:block">
+                <input type="text" name ="message" id ="message" placeholder="Add a message" style="display:block">
+                <input type="text" name ="font" id ="font" placeholder="Font Size" style="display:block">
+                <input type ="button" name ="submit" id ="submit" value="Make Card" 
+                       onclick = "clicked();" style="display:block">
+            </div>
+            
+            <div>
+                <p id ="square"></p>
+                <p id ="letters"></p>
+                <p id ="decor"></p>
+            </div>
+            <div id="gradient"></div>
+        </form>
+    </body>
+</html>

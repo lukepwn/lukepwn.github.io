@@ -1,0 +1,2 @@
+- uses js
+- timeout function to simulate animation

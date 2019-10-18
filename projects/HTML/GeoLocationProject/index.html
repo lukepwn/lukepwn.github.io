@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Weather App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css"/> 
+	<link rel="stylesheet" href="myCss.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="js/moment.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	
+	
+</head>
+<body>
+
+<div id = "one" data-role="page">
+	<div data-role="header">	
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#one" data-transition="slideright" class="ui-btn ui-icon-arrow-r">Current Weather</a></li>
+				<li><a href="#two" data-transition="slideleft" class="ui-btn ui-icon-arrow-r">Compare</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div data-role="main" class = "ui-content">
+		<input type="search" name="search" id="city" value="" />
+	</div>
+
+	<div id = "main" style="max-width: 600px; margin:auto;">
+		<canvas id="myChart" width=100% height=100%></canvas>
+	</div>
+
+	<div id="info"></div>
+</div>
+
+<div id ="two" data-role="page">
+	<div data-role="header">		
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#one" data-transition="slideright" class="ui-btn ui-icon-arrow-r">Current Weather</a></li>
+				<li><a href="#two" data-transition="slideleft" class="ui-btn ui-icon-arrow-r">Compare</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div data-role="main" class = "ui-content">
+		<input type="search" name="search2" id="city2" value="" />
+		<input type="search" name="search3" id="city3" value="" />
+		<input type="search" name="search4" id="city4" value="" />
+		<button id="btn"> Click to Compare </button>
+	</div>
+
+	<div id = "main" style="max-width: 600px; margin:auto;">
+		<canvas id="myChart2" width=100% height=100%></canvas>
+	</div>
+
+	<div id="info2"></div>
+	<div id="info3"></div>
+	<div id="info4"></div>
+</div>
+<script>
+
+	var x = document.getElementById("main");
+	var storeArray = new Array();
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(init);
+		
+	} else { 
+		x.innerHTML = "Geolocation is not supported by this browser.";
+	}
+
+
+	function init(position) {
+		var lat = position.coords.latitude
+		var lon = position.coords.longitude
+		getLocation(lat,lon);
+	}
+		
+		
+	function getLocation(lat,lon) {
+
+		var url = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&appid=e30aab7068f44fded6e3f4c84ec3d0e3';
+
+		$.ajax({
+			url: url,
+			type: 'GET',
+			dataType: 'JSON',
+			success: function(resp) {
+				var rainArray = new Array();
+				var windArray = new Array();
+				
+				var cityName = resp.city.name;
+				for(i=0; i<resp.list.length; i+=3){
+					
+					windArray.push(resp.list[i].wind.speed);
+					
+					//if (resp.list[i].rain == null || resp.list[i].rain == "") {
+						//resp.list[i].rain = 0;
+						
+					var a = resp.list[i].rain['3h'];
+					console.log(a);
+					rainArray.push(a);
+				}
+				
+				console.log(rainArray);
+				console.log(windArray);
+				
+				
+				loadWeather(cityName, rainArray)
+				infoWeather(cityName);
+
+			}
+		})
+	}	
+	function loadWeather(cityName, rainArray) {
+    
+    	var apiEndpoint = 'https://api.openweathermap.org/data/2.5/forecast?q='+cityName+'&appid=e00e1a0fa193f245f7a19bc0ced27885';
+
+    	  $.ajax({
+		    url: apiEndpoint,
+		    type: 'GET',
+		    dataType: 'JSON',
+		    success: displayWeather,
+		    error: displayError
+		  });
+
+
+		 function displayWeather(jsonResponse){
+			//console.log(windArray);
+		 	var labelArray = new Array();
+		 	var tempArray = new Array();
+			
+		 	for(i=0; i<jsonResponse.list.length; i+=3){
+		 		labelArray.push(moment(jsonResponse.list[i].dt_txt).format('DD-MMM-HH:mm'));
+		 		tempArray.push(Math.round((jsonResponse.list[i].main.temp-273.15) * 10)/10);
+		 	}
+		 	var ctx = document.getElementById('myChart').getContext('2d');
+			
+			var chart = new Chart(ctx, {
+			    
+			    type: 'bar',
+				
+			    data: {
+			        labels: labelArray,
+			        datasets: [
+			        	{
+			            	label: 'Temperature',
+							type: 'line',
+							yAxisID: 'A',
+			            	fill: false,
+			            	backgroundColor: 'rgb(255, 99, 132)',
+			            	borderColor: 'rgb(255, 99, 132)',
+			            	data: tempArray
+			        	},
+			         
+						
+						{
+							label: 'Rainfall',
+							yAxisID: 'B',
+			            	fill: false,
+			            	backgroundColor: 'rgb(26, 212, 234)',
+			            	borderColor: 'rgb(0, 0, 255)',
+			            	data: rainArray
+						}
+					],
+			    },
+				
+				options: {
+					responsive: true,
+					legend: {
+						position: 'bottom',
+						labels: {
+							fontColor: 'red',
+						}
+					},
+					title: {
+						display: true,
+						text: "Weather in " + cityName,
+						fontColor: "red",
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false,
+					},
+					hover: {
+						mode: 'nearest',
+						intersect: true
+					},
+					scales: {
+						xAxes: [{
+							display: true,
+							scaleLabel: {
+								display: true
+							},
+							
+							ticks: {
+							  fontColor: "black", 
+							},
+						}],
+						yAxes: [{
+							
+							'id': 'A',
+							display: true,
+							position: 'left',
+							scaleLabel: {
+								display: true,
+								labelString: 'Temperature',
+								fontColor: "red"
+							},
+							
+							ticks: {
+							  fontColor: "black", 
+							},
+						}, 
+						{ 
+							'id': 'B',
+							display: true,
+							position: 'right',
+							
+							scaleLabel: {
+								display: true,
+								labelString: 'Rainfall',
+								fontColor: "red"
+							},
+							
+							ticks: {
+							  fontColor: "black", 
+							},
+						}]
+					}
+				}
+			
+			});
+			//console.log(chart);
+			
+
+		 }
+
+		 function displayError(jsonResponse){
+
+		 }
+    }
+	
+	function infoWeather(cityName) {
+	
+		var url = 'https://api.openweathermap.org/data/2.5/weather?q='+cityName+'&appid=e30aab7068f44fded6e3f4c84ec3d0e3';
+
+		$.ajax({
+			url: url,
+			type: 'GET',
+			dataType: 'JSON',
+			success: function(resp) {	
+				
+				var html = '<h3>Weather in '+resp.name+',  '+resp.sys.country+'</h3>';
+				html += '<div class="temperature"><img src="http://openweathermap.org/img/w/'+resp.weather[0].icon+'.png" alt="">';
+				html += '<span><b>'+Math.floor(resp.main.temp-273.15)+'&deg C</b></span></div>';
+				html += '<p>'+resp.weather[0].description+'</p>';
+				html += '<table width="300"><tbody>';
+				html += '<tr><td>Clouds</td><td>'+resp.clouds.all+'%</td></tr>';
+				html += '<tr><td>Humidity</td><td>'+resp.main.humidity+'%</td></tr>';
+				html += '<tr><td>Wind</td><td>Speed - '+resp.wind.speed+'</td></tr>';
+				html += '<tr><td>Pressure</td><td>'+resp.main.pressure+'hpa</td></tr>';
+				html += '<tr><td>Sunrise</td><td>'+moment.unix(resp.sys.sunrise).format('HH:mm') +'</td></tr>';
+				html += '<tr><td>Sunset</td><td>'+moment.unix(resp.sys.sunset).format('HH:mm')+'</td></tr>';
+				html += '</tbody></table>';
+				$('#info').html(html);
+			},
+			error: function(resp) {
+			}
+		});
+	}
+
+	
+	function initMap() {
+		var city = document.getElementById('city');
+		var autocomplete = new google.maps.places.Autocomplete(city);
+		
+		google.maps.event.addListener(autocomplete, 'place_changed', function() {
+		var lat = autocomplete.getPlace().geometry.location.lat();
+		var lon = autocomplete.getPlace().geometry.location.lng();
+		getLocation(lat, lon);
+		<!-- alert(lat); -->
+		<!-- alert(lon); -->
+		});
+
+	}
+	
+	$("#two").click(function() {
+		var city2 = document.getElementById('city2');
+		var city3 = document.getElementById('city3');
+		var city4 = document.getElementById('city4');
+		
+		var autocomplete2 = new google.maps.places.Autocomplete(city2);
+		var autocomplete3 = new google.maps.places.Autocomplete(city3);
+		var autocomplete4 = new google.maps.places.Autocomplete(city4);
+		
+		var lat2;
+		var lon2;
+		
+		var lat3;
+		var lon3;
+		
+		var lat4;
+		var lon4;
+		//locArray = new Array();
+		google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+			
+			lat2 = autocomplete2.getPlace().geometry.location.lat();
+			lon2 = autocomplete2.getPlace().geometry.location.lng();
+
+			store(lat2, lon2);
+			
+		});
+		//alert(locArray);
+		google.maps.event.addListener(autocomplete3, 'place_changed', function() {
+			lat3 = autocomplete3.getPlace().geometry.location.lat();
+			lon3 = autocomplete3.getPlace().geometry.location.lng();
+			store(lat3, lon3);
+			//alert(lat3);
+		});
+		
+		google.maps.event.addListener(autocomplete4, 'place_changed', function() {
+			lat4 = autocomplete4.getPlace().geometry.location.lat();
+			lon4 = autocomplete4.getPlace().geometry.location.lng();
+			store(lat4, lon4);
+			//alert(lat3);
+		});
+		
+		
+			
+			<!-- alert(lat3); -->
+			<!-- alert(lon3); -->
+			
+			//getLocation2(lat2, lon2, lat3, lon3);
+		
+		
+	});
+	function store (x, y) {
+		//var storeArray = new Array();
+		//var storeArray2 = new Array();
+		storeArray.push(x);
+		storeArray.push(y);
+		
+		$("#btn").click(function() {
+			getLocation2(storeArray[0], storeArray[1], storeArray[2], storeArray[3], storeArray[4], storeArray[5])
+			
+		});
+		
+	};
+	
+	function getLocation2(lat2, lon2, lat3, lon3, lat4, lon4) {
+	//console.log(lat2);
+		var url2 = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat2+'&lon='+lon2+'&appid=e30aab7068f44fded6e3f4c84ec3d0e3';
+		
+		var url3 = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat3+'&lon='+lon3+'&appid=e30aab7068f44fded6e3f4c84ec3d0e3';
+		
+		var url4 = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat4+'&lon='+lon4+'&appid=e30aab7068f44fded6e3f4c84ec3d0e3';
+		
+		var cityName2;
+		var cityName3;
+		var cityName4;
+		
+		$.ajax({
+			url: url2,
+			async: false,
+			type: 'GET',
+			dataType: 'JSON',
+			success: function(resp) {
+				cityName2 = resp.city.name;
+				
+				}
+			});
+		
+		$.ajax({
+			url: url3,
+			async: false,
+			type: 'GET',
+			dataType: 'JSON',
+			success: function(resp) {
+				cityName3 = resp.city.name;
+				}
+
+			});
+			
+		$.ajax({
+			url: url4,
+			async: false,
+			type: 'GET',
+			dataType: 'JSON',
+			success: function(resp) {
+				cityName4 = resp.city.name;
+				}
+
+			});
+		<!-- console.log(cityName2); -->
+		<!-- console.log(cityName3); -->
+		loadWeather2(cityName2, cityName3, cityName4)
+		infoWeather2(cityName2, cityName3, cityName4);
+	};
+	
+	function loadWeather2(cityName2, cityName3, cityName4) {
+    
+    	var apiEndpoint2 = 'https://api.openweathermap.org/data/2.5/forecast?q='+cityName2+'&appid=e00e1a0fa193f245f7a19bc0ced27885';
+		
+		var apiEndpoint3 = 'https://api.openweathermap.org/data/2.5/forecast?q='+cityName3+'&appid=e00e1a0fa193f245f7a19bc0ced27885';
+		
+		var apiEndpoint4 = 'https://api.openweathermap.org/data/2.5/forecast?q='+cityName4+'&appid=e00e1a0fa193f245f7a19bc0ced27885';
+		
+		var labelArray2 = new Array();
+		var tempArray2 = new Array();
+		var labelArray3 = new Array();
+		var tempArray3 = new Array();
+		var labelArray4 = new Array();
+		var tempArray4 = new Array();
+
+    	  $.ajax({
+		    url: apiEndpoint2,
+		    type: 'GET',
+		    dataType: 'JSON',
+		    success: displayWeather2,
+			error: displayError2
+		  });
+
+
+		 function displayWeather2(jsonResponse){
+			
+		 	for(i=0; i<jsonResponse.list.length; i+=3){
+		 		labelArray2.push(moment(jsonResponse.list[i].dt_txt).format('DD-MMM-HH:mm'));
+		 		tempArray2.push(Math.round((jsonResponse.list[i].main.temp-273.15) * 10)/10);
+				//console.log(tempArray2);
+		 	}
+		 }
+		 
+		  $.ajax({
+		    url: apiEndpoint3,
+		    type: 'GET',
+		    dataType: 'JSON',
+		    success: displayWeather3,
+			error: displayError2
+		  });
+
+
+		 function displayWeather3(jsonResponse){
+			
+		 	for(i=0; i<jsonResponse.list.length; i+=3){
+		 		labelArray3.push(moment(jsonResponse.list[i].dt_txt).format('DD-MMM-HH:mm'));
+		 		tempArray3.push(Math.round((jsonResponse.list[i].main.temp-273.15) * 10)/10);
+				//console.log(tempArray2);
+		 	}
+		 }
+		 //console.log(tempArray2);
+		 $.ajax({
+		    url: apiEndpoint4,
+		    type: 'GET',
+		    dataType: 'JSON',
+		    success: displayWeather4
+		  });
+		  
+		  function displayWeather4(jsonResponse){
+			
+		 	for(i=0; i<jsonResponse.list.length; i+=3){
+		 		labelArray4.push(moment(jsonResponse.list[i].dt_txt).format('DD-MMM-HH:mm'));
+		 		tempArray4.push(Math.round((jsonResponse.list[i].main.temp-273.15) * 10)/10);
+		 	}
+		 	var ctx = document.getElementById('myChart2').getContext('2d');
+			var chart = new Chart(ctx, {
+			    
+			    type: 'line',
+				
+			    data: {
+			        labels: labelArray2,
+			        datasets: [
+			        	{
+			            	label: cityName2,
+			            	fill: false,
+			            	backgroundColor: 'rgb(255, 99, 132)',
+			            	borderColor: 'rgb(255, 99, 132)',
+			            	data: tempArray2
+			        	},
+			         
+						{
+							label: cityName3,
+			            	fill: false,
+			            	backgroundColor: 'rgb(26, 212, 234)',
+			            	borderColor: 'rgb(0, 0, 255)',
+			            	data: tempArray3
+						},
+			         
+						{
+							label: cityName4,
+			            	fill: false,
+			            	backgroundColor: 'yellow',
+			            	borderColor: 'yellow',
+			            	data: tempArray4
+						}
+					],
+					
+			    },
+				
+				options: {
+					responsive: true,
+					legend: {
+						position: 'bottom',
+						labels: {
+							fontColor: 'red',
+						},
+					},
+					title: {
+						display: true,
+						text: "Comparison between " + cityName2 + ", " + cityName3 + ", " + cityName4,
+						fontColor: "red",
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false,
+					},
+					hover: {
+						mode: 'nearest',
+						intersect: true
+					},
+					scales: {
+						xAxes: [{
+							display: true,
+							scaleLabel: {
+								display: true
+							},
+							
+							ticks: {
+							  fontColor: "black", 
+							},
+						}],
+						yAxes: [{
+							display: true,
+							scaleLabel: {
+								display: true,
+								labelString: 'Temperature',
+								fontColor: "red",
+							},
+							
+							ticks: {
+							  fontColor: "black", 
+							},
+						}]
+					}
+				}
+			
+			});
+			
+
+		 }
+
+		 function displayError2(jsonResponse){
+
+		 }
+    }
+	
+	function infoWeather2(cityName2, cityName3, cityName4) {
+
+		var url2 = 'https://api.openweathermap.org/data/2.5/weather?q='+cityName2+'&appid=e30aab7068f44fded6e3f4c84ec3d0e3';
+		
+		var url3 = 'https://api.openweathermap.org/data/2.5/weather?q='+cityName3+'&appid=e30aab7068f44fded6e3f4c84ec3d0e3';
+		
+		var url4 = 'https://api.openweathermap.org/data/2.5/weather?q='+cityName4+'&appid=e30aab7068f44fded6e3f4c84ec3d0e3';
+
+		$.ajax({
+			url: url2,
+			type: 'GET',
+			dataType: 'JSON',
+			success: function(resp) {	
+
+				var html = '<h3>Weather in '+resp.name+',  '+resp.sys.country+'</h3>';
+				html += '<div class="temperature"><img src="http://openweathermap.org/img/w/'+resp.weather[0].icon+'.png" alt="">';
+				html += '<span><b>'+Math.floor(resp.main.temp-273.15)+'&deg C</b></span></div>';
+				html += '<p>'+resp.weather[0].description+'</p>';
+				html += '<table width="300"><tbody>';
+				html += '<tr><td>Clouds</td><td>'+resp.clouds.all+'%</td></tr>';
+				html += '<tr><td>Humidity</td><td>'+resp.main.humidity+'%</td></tr>';
+				html += '<tr><td>Wind</td><td>Speed - '+resp.wind.speed+'</td></tr>';
+				html += '<tr><td>Pressure</td><td>'+resp.main.pressure+'hpa</td></tr>';
+				html += '<tr><td>Sunrise</td><td>'+moment.unix(resp.sys.sunrise).format('HH:mm') +'</td></tr>';
+				html += '<tr><td>Sunset</td><td>'+moment.unix(resp.sys.sunset).format('HH:mm')+'</td></tr>';
+				html += '</tbody></table>';
+				$('#info2').html(html);
+			},
+			error: function(resp) {
+			}
+		});
+		
+		$.ajax({
+			url: url3,
+			type: 'GET',
+			dataType: 'JSON',
+			success: function(resp) {	
+
+				var html = '<h3>Weather in '+resp.name+',  '+resp.sys.country+'</h3>';
+				html += '<div class="temperature"><img src="http://openweathermap.org/img/w/'+resp.weather[0].icon+'.png" alt="">';
+				html += '<span><b>'+Math.floor(resp.main.temp-273.15)+'&deg C</b></span></div>';
+				html += '<p>'+resp.weather[0].description+'</p>';
+				html += '<table width="300"><tbody>';
+				html += '<tr><td>Clouds</td><td>'+resp.clouds.all+'%</td></tr>';
+				html += '<tr><td>Humidity</td><td>'+resp.main.humidity+'%</td></tr>';
+				html += '<tr><td>Wind</td><td>Speed - '+resp.wind.speed+'</td></tr>';
+				html += '<tr><td>Pressure</td><td>'+resp.main.pressure+'hpa</td></tr>';
+				html += '<tr><td>Sunrise</td><td>'+moment.unix(resp.sys.sunrise).format('HH:mm') +'</td></tr>';
+				html += '<tr><td>Sunset</td><td>'+moment.unix(resp.sys.sunset).format('HH:mm')+'</td></tr>';
+				html += '</tbody></table>';
+				$('#info3').html(html);
+			},
+			error: function(resp) {
+			}
+		});
+		
+		$.ajax({
+			url: url4,
+			type: 'GET',
+			dataType: 'JSON',
+			success: function(resp) {	
+
+				var html = '<h3>Weather in '+resp.name+',  '+resp.sys.country+'</h3>';
+				html += '<div class="temperature"><img src="http://openweathermap.org/img/w/'+resp.weather[0].icon+'.png" alt="">';
+				html += '<span><b>'+Math.floor(resp.main.temp-273.15)+'&deg C</b></span></div>';
+				html += '<p>'+resp.weather[0].description+'</p>';
+				html += '<table width="300"><tbody>';
+				html += '<tr><td>Clouds</td><td>'+resp.clouds.all+'%</td></tr>';
+				html += '<tr><td>Humidity</td><td>'+resp.main.humidity+'%</td></tr>';
+				html += '<tr><td>Wind</td><td>Speed - '+resp.wind.speed+'</td></tr>';
+				html += '<tr><td>Pressure</td><td>'+resp.main.pressure+'hpa</td></tr>';
+				html += '<tr><td>Sunrise</td><td>'+moment.unix(resp.sys.sunrise).format('HH:mm') +'</td></tr>';
+				html += '<tr><td>Sunset</td><td>'+moment.unix(resp.sys.sunset).format('HH:mm')+'</td></tr>';
+				html += '</tbody></table>';
+				$('#info4').html(html);
+			},
+			error: function(resp) {
+			}
+		});
+	}
+
+	
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1R4LWgnucu5jO34Y0FzUiOosHT5re3r0&libraries=places&callback=initMap" async defer></script>
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCx9HBhnhjOfM7remPA2jtzz3PsvgX5Xag&libraries=places&callback=initMap2" async defer></script> -->
+
+
+</body>
+</html>

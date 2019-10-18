@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+
+        <title>Assignment 3</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style> 
+            h1 {
+                text-align:center;
+                font-weight: bold;
+            }
+            
+            button {
+                background-color: red;
+                color: white;
+                margin-left:auto; 
+                margin-right:auto;
+                height: 50px;
+                width: 120px;
+            }
+            table {
+                
+                margin-left:auto; 
+                margin-right:auto;
+                
+            }
+            tr {
+                border: 3px solid black;
+                
+            }
+            td.this {
+                border: 3px solid black;
+                height: 120px;
+                width: 120px;
+                
+            }
+            .center {
+                text-align: center;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <header><h1> Short Animation With My Initials </h1></header>
+        <table> 
+        
+        <tr><td class = "this"></td></tr>
+        <tr><td class = "this"></td></tr>
+        <tr><td class = "this"></td></tr>
+        
+        <tr>
+            <td class = "this"></td>
+            <td class = "this"></td>
+            <td class = "this"></td>
+            <td class = "this"></td>
+        </tr>        
+        
+        </table>
+        
+        <div class="center">
+            <button id ="start" onclick = "getInput()"> Start Animation </button> 
+        </div>
+
+        <script>
+            
+            var input = "";
+            
+            function getInput() {
+                var a = true; 
+                
+                while (a) {
+                    input = prompt("What color do you want? (blue, red, yellow, or green)");
+                    
+                    if (input === "blue") {
+                        change(0);
+                        a = false;
+                        
+                        }
+                        
+                    else if (input === "red") {
+                        change(0);
+                        a = false;
+                    }
+
+                    else if (input === "yellow") {
+                        change(0);
+                        a = false;
+                    }
+
+                    else if (input === "green") {
+                        change(0);
+                        a = false;
+                    }
+                    else {
+                        alert("Color doesn't exist. Try again.");
+                    }
+                }
+            }
+            
+            function change(count) {
+                
+                if (count<document.getElementsByClassName("this").length) {
+                    setTimeout(function() {
+                        document.getElementsByClassName("this")[count].style.backgroundColor = input;
+                        count++;
+                        change(count);
+                    },50);    
+                }
+            }
+            
+        </script>
+    </body>
+</html>

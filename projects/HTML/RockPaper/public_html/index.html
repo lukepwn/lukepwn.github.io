@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style> 
+            .container {
+                font-weight: bold;
+            }
+            button {
+                margin: auto;
+                display: block;
+                top: 50%;
+            }
+            
+            p {
+                font-size: 3em;
+                text-align: center;
+            }
+            
+            img {
+                display: block;
+                margin: 0 auto;
+            }
+            
+        </style>
+            
+    </head>
+    <body>
+        
+        <p> Choose your weapon. </p>
+        <div class = "container">
+            <img id="rockImg" alt = "rock" src="http://media.istockphoto.com/photos/punching-fist-picture-id185257780?k=6&m=185257780&s=170667a&w=0&h=otNsx9qsejJkm_X4NxU5JWHdc2VQ3r8Ad0-7JOUruz8=" 
+                 width = "100px" style="visibility:hidden" />
+            <button id = "rock" onfocus = "win();"> Rock </button> 
+        </div>
+        
+        <div class ="container"> 
+            <img id="paperImg" alt = "paper" src="http://images.mentalfloss.com/sites/default/files/styles/insert_main_wide_image/public/open-hand.png"
+                 width = "200px" style="visibility:hidden" />
+            <button id = "paper"> Paper </button> 
+        </div>
+        
+        <div class ="container"> 
+            <img id="scissorImg" alt = "scissor" src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/P5qzYfp/scissors-hand-sign-white-v2-hd_4j_xxni5__M0005.jpg"
+                 width = "300px" style="visibility:hidden" />
+            <button id = "scissors"> Scissors </button> 
+        </div> 
+        
+        <script type = "text/javascript"> 
+            //assign elements to initial variables for each user click
+            var r = document.getElementById("rock").addEventListener ("click", click);
+            var p = document.getElementById("paper").addEventListener ("click", click);
+            var s = document.getElementById("scissors").addEventListener ("click", click);
+                        
+            function click (event) {
+                //resets picture show
+                document.getElementById("rockImg").style.visibility = "hidden";
+                document.getElementById("paperImg").style.visibility = "hidden";
+                document.getElementById("scissorImg").style.visibility = "hidden";
+                
+                var target = event.target.id; //assign target id 
+                var comp = "";
+
+                var a = Math.random(); //random generates a number between 0 and 1, so split into 3 choices
+                if (a <= 0.33) {
+                    comp = "rock";
+                }
+                else if (a<=.66 && a>0.34){
+                    comp = "paper";
+                }
+                else {
+                    comp = "scissors";
+                }
+            
+                if (target == comp) {
+                    alert ("Tie, Computer chose " + comp);
+                }
+                else if (target == "rock"){
+					document.getElementById("rockImg").style.visibility = "visible";
+                    if (comp == "paper"){
+                        alert("Lose, Computer chose " + comp);
+                    }
+                    else {
+                        alert ("Win, Computer chose " + comp);
+                    }
+                }
+                    
+                else if (target == "paper") {
+					document.getElementById("paperImg").style.visibility = "visible";
+                    if (comp == "scissors") {
+                        alert("Loser, Computer chose " + comp);
+						
+                    }
+                    else {
+                        alert("Winner, Computer chose " + comp);
+                    }
+                }
+                
+                else if (target == "scissors"){
+					document.getElementById("scissorImg").style.visibility = "visible";
+                    if (comp == "rock") {
+                        alert("Looooser, Computer chose " + comp);
+                    }
+                    else {
+                        alert("Winnnnnner, Computer chose " + comp);
+                        
+                    }
+                }
+
+            }
+
+        </script>
+            
+    </body>
+</html>
