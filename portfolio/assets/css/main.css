@@ -2041,6 +2041,7 @@ input, select, textarea {
 		border: 0;
 		display: inline-block;
 		position: relative;
+		height: 170px;
 	}
 
 		.image:before {
@@ -2100,6 +2101,7 @@ input, select, textarea {
 		.image img {
 			border-radius: 0.35em;
 			display: block;
+			
 		}
 
 		.image.left {
@@ -3052,6 +3054,11 @@ input, select, textarea {
 			body, input, select, textarea {
 				font-size: 12pt;
 			}
+			
+			#header {
+				padding: 6em 3em 3em 3em;
+				width: 30%;
+			}
 
 	}
 
@@ -3151,8 +3158,8 @@ input, select, textarea {
 
 			#footer {
 				background-attachment: scroll;
-				background-color: #1f1815;
-				background-image: url("images/overlay.png"), url("../../images/bg.jpg");
+				background-color: #171a1d;
+				
 				background-position: top left,						bottom center;
 				background-repeat: repeat,							no-repeat;
 				background-size: auto,							cover;
