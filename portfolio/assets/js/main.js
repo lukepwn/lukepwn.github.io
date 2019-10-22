@@ -2,6 +2,8 @@
 	poptrox import
 */
 
+
+
 (function($) {
 
 	var $window = $(window),
@@ -30,6 +32,9 @@
 
 	// Play initial animations on page load.
 		$window.on('load', function() {
+			
+			//$("is.preload").fadeOut("slow");
+			
 			window.setTimeout(function() {
 				$body.removeClass('is-preload');
 			}, 100);
