@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Assignment 2</title> 
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="themes/myCss.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css"/> 
+
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/myJs.js"></script>
+</head>
+
+<body>
+	<!--index-->
+	<div id = "div1" data-role="page">
+		<div id = "header1" data-role="header"></div>
+		<div data-role="main" class = "ui-content">
+
+		<a href="#div2" data-transition="slidedown" class="ui-btn ui-icon-arrow-r" id="m1"></a>
+		<a href="#div3" data-transition="slidedown" class="ui-btn ui-icon-arrow-r" id="m2"></a>
+		<a href="#div4" data-transition="slidedown" class="ui-btn ui-icon-arrow-r" id="m3"></a>
+		</div>
+		
+		<div id = "footer1" data-role="footer" data-position='fixed'></div>
+	</div>
+	
+	<!--page2-->
+	<div id='div2' data-role="page">
+		<div id = 'header2' data-role="header"></div>
+		<div id = 'main2' data-role="main" class="ui-content">  
+
+			<div class="ui-grid-b">
+				<div id = "desc2" class="ui-block-a"><h2>Synopsis: </h2></div>
+				<div id = "cast2" class="ui-block-b"><h2>Casts: </h2></div>
+				<div id = "review2" class="ui-block-c"><h2>Reviews: </h2></div>
+			</div><br>
+
+			<div data-role="navbar">
+				<ul>
+					<li><a href="https://www.imdb.com/title/tt0848228/" class="ui-btn">IMDB.com</a></li>
+					<li><a href="https://www.cineplex.com" class="ui-btn">Cineplex Movie Theatre</a></li>
+				</ul>
+				
+				<a href="#div1" data-transition="slideup" class="ui-btn id="back">Back to Main Page</a>
+			</div>
+		
+		<div id = "footer2" data-role="footer" data-position='fixed'></div>
+		</div>
+	</div>
+	
+	<!--page3-->
+	<div id='div3' data-role="page">
+		<div id = 'header3' data-role="header"></div>
+		<div id = 'main3' data-role="main" class="ui-content">  
+
+			<div class="ui-grid-b">
+				<div id = "desc3" class="ui-block-a"><h2>Synopsis: </h2></div>
+				<div id = "cast3" class="ui-block-b"><h2>Casts: </h2></div>
+				<div id = "review3" class="ui-block-c"><h2>Reviews: </h2></div>
+			</div><br>
+
+			<div data-role="navbar">
+				<ul>
+					<li><a href="https://www.imdb.com/title/tt0892769/" class="ui-btn">IMDB.com</a></li>
+					<li><a href="https://www.cineplex.com" class="ui-btn">Cineplex Movie Theatre</a></li>
+				</ul>
+				
+				<a href="#div1" data-transition="slideup" class="ui-btn id="back">Back to Main Page</a>
+			</div>
+		
+		<div id = "footer3" data-role="footer" data-position='fixed'></div>
+		</div>
+	</div>
+	
+	<!--page4-->
+	<div id='div4' data-role="page">
+		<div id = 'header4' data-role="header"></div>
+		<div id = 'main4' data-role="main" class="ui-content">  
+
+			<div class="ui-grid-b">
+				<div id = "desc4" class="ui-block-a"><h2>Synopsis: </h2></div>
+				<div id = "cast4" class="ui-block-b"><h2>Casts: </h2></div>
+				<div id = "review4" class="ui-block-c"><h2>Reviews: </h2></div>
+			</div><br>
+
+			<div data-role="navbar">
+				<ul>
+					<li><a href="https://www.imdb.com/title/tt1375666/" class="ui-btn">IMDB.com</a></li>
+					<li><a href="https://www.cineplex.com" class="ui-btn">Cineplex Movie Theatre</a></li>
+				</ul>
+				
+				<a href="#div1" data-transition="slideup" class="ui-btn id="back">Back to Main Page</a>
+			</div>
+		
+		<div id = "footer4" data-role="footer" data-position='fixed'></div>
+		</div>
+	</div>
+</body>
+</html>

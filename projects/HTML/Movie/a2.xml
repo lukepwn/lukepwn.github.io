@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+
+<damlu>
+	<title>My Movies</title>
+	
+	<student studentNumber="991457302" studentProg ="Software Development and Network Engineering">
+		<studentName>Luke Dam</studentName>
+		
+	</student>
+	
+	<!--avengers-->
+	<movie>
+		<movieName image="images/avengers.jpg">The Avengers</movieName>
+		<movieDesc>The Avengers, is a 2012 American superhero film based on the Marvel Comics superhero team of the same name
+		</movieDesc>
+		
+		<cast>
+			<castName>Robert Downey Jr.: </castName>
+			<castRole>Iron Man</castRole>
+		</cast>
+		
+		<cast>
+			<castName>Chris Evans: </castName>
+			<castRole>Captain America</castRole>
+		</cast>
+		
+		<cast>
+			<castName>Mark Ruffalo: </castName>
+			<castRole>Hulk</castRole>
+		</cast>
+		
+		<review>
+			<reviewName>Common Sense Media</reviewName>
+			<reviewDesc>Quick-witted and nuanced, this movie takes the best of the genre -- iconic heroes fighting for truth and justice -- and dishes it out in a fanboy-pleasing, edge-of-your seat way.
+			</reviewDesc>
+			
+			<reviewName>Empire</reviewName>
+			<reviewDesc>A joyous blend of heroism and humour that raises the stakes even as it maintains a firm grip on what makes the individual heroes tick.
+			</reviewDesc>
+			
+			<reviewName>Times of India</reviewName>
+			<reviewDesc>Just settle down with your 3D glasses for some bang-bang stuff where VFX speak louder than guns and the super guys have nothing to fall back on, other than their muscles, reflexes and super powers.
+			</reviewDesc>
+		</review>
+	</movie>
+	
+	<!--How to Train Your Dragon-->
+	<movie>
+		<movieName image="images/dragon.jpg">How to Train Your Dragon</movieName>
+		<movieDesc>The story takes place in a mythical Viking world where a young Viking teenager named Hiccup aspires to follow his tribe's tradition of becoming a dragon slayer
+		</movieDesc>
+		
+		<cast>
+			<castName>Jay Baruchel: </castName>
+			<castRole>Hiccup</castRole>
+		</cast>
+		
+		<cast>
+			<castName>Gerard Butler: </castName>
+			<castRole>Stoick</castRole>
+		</cast>
+		
+		<cast>
+			<castName>Craig Ferguson: </castName>
+			<castRole>Gobber</castRole>
+		</cast>
+		
+		<review>
+			<reviewName>Time Magazine</reviewName>
+			<reviewDesc>It's a foolproof scheme for picture making: take the plot elements of favorite movies, paint the concoction with bright colors so it looks like the zazziest customized car, set it running at NASCAR speed, and you have How to Train Your Dragon.
+			</reviewDesc>
+			
+			<reviewName>Salon.com</reviewName>
+			<reviewDesc>Toothless has the one precious ingredient that's missing from so many of Hollywood's contemporary animated characters: an air of mystery.
+			</reviewDesc>
+			
+			<reviewName>Film.com</reviewName>
+			<reviewDesc>It's a Harry Potter-meets-Avatar adventure that should delight most children and adults.
+			</reviewDesc>
+		</review>
+	</movie>
+		
+	<!--Inception-->
+	<movie>
+		<movieName image="images/inception.jpg">Inception</movieName>
+		<movieDesc>A professional thief who steals information by infiltrating the subconscious, and is offered a chance to have his criminal history erased as payment for the implantation of another person's idea into a target's subconscious.
+		</movieDesc>
+		
+		<cast>
+			<castName>Leonardo DiCaprio: </castName>
+			<castRole>Dom Cobb</castRole>
+		</cast>
+		
+		<cast>
+			<castName>Joseph Gordon-Levitt: </castName>
+			<castRole>Arthur</castRole>
+		</cast>
+		
+		<cast>
+			<castName>Ellen Page: </castName>
+			<castRole>Ariadne</castRole>
+		</cast>
+		
+		<review>
+			<reviewName>Common Sense Media</reviewName>
+			<reviewDesc>"Inception" is an intense, complex story, but it's always coherent, imaginative, and entertaining.
+			</reviewDesc>
+			
+			<reviewName>Empire</reviewName>
+			<reviewDesc>With physics-defying, thunderous action, heart-wringing emotion and an astonishing performance from DiCaprio, Nolan delivers another true original: welcome to an undiscovered country.
+			</reviewDesc>
+			
+			<reviewName>Rolling Stone</reviewName>
+			<reviewDesc>I'll say no more, except that Inception rewards the attention it demands
+			</reviewDesc>
+		</review>
+	</movie>
+</damlu>
