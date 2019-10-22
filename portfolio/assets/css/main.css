@@ -141,12 +141,13 @@ input, select, textarea {
 		}
 
 	h1 {
+		color: #525252;
 		font-size: 2em;
 		line-height: 1.5em;
 	}
 
 	h2 {
-		color: black;
+		color: #787878;
 		font-size: 1.5em;
 		line-height: 1.5em;
 	}
