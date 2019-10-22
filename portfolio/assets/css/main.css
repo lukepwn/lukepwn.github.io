@@ -2756,7 +2756,7 @@ input, select, textarea {
 	}
 
 		#main > section {
-			border-top: solid 2px red;
+			border-top: solid 2px #FF0000;
 			padding: 3em 0 0 0;
 		}
 
