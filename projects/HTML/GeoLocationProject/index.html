@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Weather App</title>
+	<title>Weather Mobile App</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css"/> 
@@ -26,8 +26,11 @@
 	</div>
 	
 	<div data-role="main" class = "ui-content">
-		<input type="search" name="search" id="city" value="" />
+		<input type="search" name="search" id="city" value="Need to pay for autocomplete, google places API for this searchbar. " />
 	</div>
+	
+	
+	<button onclick="getInput()"> Click me to get your current location results</button>
 
 	<div id = "main" style="max-width: 600px; margin:auto;">
 		<canvas id="myChart" width=100% height=100%></canvas>
@@ -65,18 +68,25 @@
 
 	var x = document.getElementById("main");
 	var storeArray = new Array();
-
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(init);
-		
-	} else { 
-		x.innerHTML = "Geolocation is not supported by this browser.";
+	
+	function getInput() {
+	
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(init);
+			
+		} else { 
+			x.innerHTML = "Geolocation is not supported by this browser.";
+		}
+	
 	}
+
+	
 
 
 	function init(position) {
 		var lat = position.coords.latitude
 		var lon = position.coords.longitude
+		
 		getLocation(lat,lon);
 	}
 		
@@ -95,15 +105,19 @@
 				
 				var cityName = resp.city.name;
 				for(i=0; i<resp.list.length; i+=3){
+					//console.log(resp.list[i]);
+					
 					
 					windArray.push(resp.list[i].wind.speed);
 					
-					//if (resp.list[i].rain == null || resp.list[i].rain == "") {
-						//resp.list[i].rain = 0;
-						
-					var a = resp.list[i].rain['3h'];
-					console.log(a);
-					rainArray.push(a);
+					if (resp.list[i].rain == null || resp.list[i].rain == "") {
+						resp.list[i].rain = 0;
+					}
+					else {
+					
+						var a = resp.list[i].rain["3h"];
+						rainArray.push(a);
+					}
 				}
 				
 				console.log(rainArray);
@@ -277,15 +291,20 @@
 	
 	function initMap() {
 		var city = document.getElementById('city');
+		console.log(city);
 		var autocomplete = new google.maps.places.Autocomplete(city);
 		
-		google.maps.event.addListener(autocomplete, 'place_changed', function() {
-		var lat = autocomplete.getPlace().geometry.location.lat();
-		var lon = autocomplete.getPlace().geometry.location.lng();
-		getLocation(lat, lon);
+		console.log(autocomplete);
+		
+		//google.maps.event.addListener(autocomplete, 'place_changed', function() {
+		//var lat = autocomplete.getPlace().geometry.location.lat();
+		//var lon = autocomplete.getPlace().geometry.location.lng();
+		//getLocation(lat, lon); 
+		
+		
 		<!-- alert(lat); -->
 		<!-- alert(lon); -->
-		});
+		//});
 
 	}
 	
