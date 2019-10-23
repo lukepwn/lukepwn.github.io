@@ -127,6 +127,13 @@ input, select, textarea {
 	p {
 		margin: 0 0 2em 0;
 	}
+	
+	p1 {
+		margin: 0 0 2em 0;
+		color: black;
+		font-style: italic;
+	}
+		
 
 	h1, h3, h4, h5, h6 {
 		color: #787878;
@@ -2755,8 +2762,14 @@ input, select, textarea {
 		background-image: url("images/line.jpg");
 	}
 
-		#main > section {
+		#main > section#three {
 			border-top: solid 2px #FF0000;
+			padding: 3em 0 0 0;
+			
+		}
+		
+		#main > section#two {
+			border-top: solid 2px #787878;
 			padding: 3em 0 0 0;
 		}
 
