@@ -149,20 +149,6 @@ input, select, textarea {
 			text-decoration: none;
 		}
 		
-	@keyframes aboutcontent {
-		from {left: 200px;} 
-		to {left: 0px;}
-		from { opacity: 0; }
-		to { opacity: 1; }
-	}
-
-	#about {
-		position: relative;
-		animation-timing-function: ease; 
-		animation-timing-function: fadein;
-		animation: aboutcontent 2s;
-	}
-
 	h1 {
 		color: #525252;
 		font-size: 2em;
@@ -3328,3 +3314,43 @@ input, select, textarea {
 			}
 
 	}
+	
+@keyframes aboutcontent {
+	from {left: 0px;} 
+	to {left: -50px;}
+}
+
+.slideleft {
+	position: relative;
+	animation-timing-function: ease; 
+	animation-timing-function: fadein;
+	animation: aboutcontent2 2s;
+}
+
+@keyframes aboutcontent2 {
+	from {left: -50px;} 
+	to {left: 0px;}
+}
+
+.slideright {
+	position: relative;
+	animation-timing-function: ease; 
+	animation-timing-function: fadeout;
+	opacity: 0;
+	transition: opacity 2s linear;
+	animation: aboutcontent 2s;
+}
+
+
+/* 	
+.scroll-content {
+	position: relative;
+	opacity: 0;
+	transition: transform 4s 4s cubic-bezier(0.53, 0.99, 0.55, 0.99),
+              opacity .3s .25s ease-out;
+	will-change: transform, opacity;
+}
+
+.scroll-content.is-visible {
+	opacity: 1;
+} */
