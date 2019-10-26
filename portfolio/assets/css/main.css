@@ -3087,7 +3087,6 @@ input, select, textarea {
 				padding: 6em 3em 3em 3em;
 				width: 30%;
 			}
-
 	}
 
 /* Large */
@@ -3140,6 +3139,7 @@ input, select, textarea {
 				padding: 6em 3em 3em 3em;
 				width: calc(100% - 30%);
 			}
+		
 
 	}
 
