@@ -2772,7 +2772,7 @@ input, select, textarea {
 
 	#main {
 		margin-left: 30%;
-		max-width: 54em;
+		max-width: 100%; /* 54em */
 		padding: 8em 4em 4em 4em;
 		width: calc(100% - 30%);
 		background-image: url("images/line.jpg");
