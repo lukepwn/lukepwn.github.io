@@ -2049,7 +2049,7 @@ input, select, textarea {
 		border: 0;
 		display: inline-block;
 		position: relative;
-		height: 200px;
+		height: 50%;
 	}
 
 		.image:before {
@@ -2057,7 +2057,7 @@ input, select, textarea {
 			border-radius: 0.35em;
 			content: '';
 			display: block;
-			height: 200px;
+			height: 100%;
 			left: 0;
 			opacity: 0.5;
 			position: absolute;
@@ -2100,12 +2100,12 @@ input, select, textarea {
 			.image.thumb:hover:before {
 				background: url("images/white.png"), url("images/white.png");
 				opacity: 0.2;
-				height: 205px;
 			}
 
 		.image img {
 			border-radius: 0.35em;
 			display: block;
+			height: 100%;
 			
 		}
 
