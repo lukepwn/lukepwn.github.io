@@ -3058,6 +3058,22 @@ input, select, textarea {
 	body.is-touch .poptrox-popup .closer {
 		opacity: 1.0 !important;
 	}
+	
+/* 4k */
+
+	@media screen and (max-width: 3200px) {
+
+		/* Basic */
+
+			body, input, select, textarea {
+				font-size: 25pt;
+			}
+			
+			#header {
+				padding: 6em 3em 3em 3em;
+				width: 30%;
+			}
+	}
 
 /* XLarge */
 
