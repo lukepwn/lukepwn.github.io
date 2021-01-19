@@ -1,2 +1,2 @@
 # lukepwn.github.io
-Visit: www.lukepwn.me
+Visit: lukepwn.github.io
