@@ -3065,9 +3065,9 @@ input, select, textarea {
 
 		/* Basic */
 
-			body, input, select, textarea {
+			/* body, input, select, textarea {
 				font-size: 25pt;
-			}
+			} */
 			
 			#header {
 				padding: 6em 3em 3em 3em;
