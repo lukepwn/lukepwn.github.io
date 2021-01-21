@@ -2761,8 +2761,13 @@ input, select, textarea {
 		max-width: 100%; /* 54em */
 		padding: 8em 4em 4em 4em;
 		width: calc(100% - 30%);
-		background-image: url("images/line.jpg");
+		background-image: url("images/white.png");
 	}
+
+		#main > section#four {
+			border-top: solid 2px #787878;
+			padding: 3em 0 0 0;
+		}
 
 		#main > section#three {
 			border-top: solid 2px #FF0000;
@@ -3064,10 +3069,6 @@ input, select, textarea {
 	@media screen and (max-width: 3200px) {
 
 		/* Basic */
-
-			/* body, input, select, textarea {
-				font-size: 25pt;
-			} */
 			
 			#header {
 				padding: 6em 3em 3em 3em;
